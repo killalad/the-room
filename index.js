@@ -4,7 +4,7 @@ const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
-require('dotenv').load()
+require('dotenv').config()
 const remoteServer = require('socket.io-client')(
 	'http://' + process.env.SERVER_IP + ':' + process.env.SERVER_PORT + '/',
 )
