@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<meta name="msapplication-TileColor" content="#6FBFB7" />
+		<meta name="msapplication-config" content="/icons/browserconfig.xml" />
+		<meta name="theme-color" content="#6FBFB7" />
+
+		<title>the-room</title>
+		<link
+			href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/normalize.css" />
+		<link rel="stylesheet" href="/style.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>the-room</h1>
+			<main>
+				<section>
+					<h2>main-light</h2>
+					<label class="toggle-label">
+						<input type="checkbox" id="mainLightToggle" />
+						<span class="back">
+							<span class="toggle"></span>
+							<span class="label on">ON</span>
+							<span class="label off">OFF</span>
+						</span>
+					</label>
+				</section>
+				<section>
+					<h2>table-light</h2>
+					<label class="toggle-label">
+						<input type="checkbox" id="tableLightToggle" />
+						<span class="back">
+							<span class="toggle"></span>
+							<span class="label on">ON</span>
+							<span class="label off">OFF</span>
+						</span>
+					</label>
+				</section>
+				<section>
+					<h2>led-light</h2>
+					<label class="toggle-label">
+						<input type="checkbox" />
+						<span class="back">
+							<span class="toggle"></span>
+							<span class="label on">ON</span>
+							<span class="label off">OFF</span>
+						</span>
+					</label>
+				</section>
+			</main>
+			<footer>made with love by georgiu</footer>
+		</div>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/script.js"></script>
+	</body>
+</html>

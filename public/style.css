@@ -1,0 +1,121 @@
+/*START*/
+
+html {
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+body {
+	font-family: 'Lato', sans-serif;
+}
+img {
+	width: 100%;
+	max-width: 100%;
+	vertical-align: middle;
+}
+
+/* Toggle on/off */
+.toggle-label {
+	position: relative;
+	display: block;
+	max-width: 18rem;
+	height: 6rem;
+	border: 1px solid #808080;
+	margin: 0 auto;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.toggle-label input[type='checkbox'] {
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.toggle-label input[type='checkbox'] + .back {
+	position: absolute;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	background: #f26666;
+	transition: background 150ms ease-in-out;
+}
+.toggle-label input[type='checkbox']:checked + .back {
+	background: #6fbfb7; /*green*/
+}
+
+.toggle-label input[type='checkbox'] + .back .toggle {
+	display: block;
+	position: absolute;
+	content: ' ';
+	background: #fff;
+	width: 50%;
+	height: 100%;
+	transition: margin 150ms linear;
+	border: 1px solid #808080;
+	border-radius: 0;
+}
+.toggle-label input[type='checkbox']:checked + .back .toggle {
+	margin-left: 50%;
+}
+.toggle-label .label {
+	display: block;
+	width: 50%;
+	color: #ddd;
+	align-self: center;
+	margin-bottom: 0.5rem;
+	text-align: center;
+	font-size: 2em;
+	position: relative;
+}
+.toggle-label .label.on {
+	left: 0;
+}
+.toggle-label .label.off {
+	right: 0;
+}
+
+.toggle-label input[type='checkbox']:checked + .back .label.on {
+	color: #f2f2f2;
+}
+.toggle-label input[type='checkbox'] + .back .label.off {
+	color: #f2f2f2;
+}
+.toggle-label input[type='checkbox']:checked + .back .label.off {
+	color: #ddd;
+}
+
+/*GENERAL*/
+h1 {
+	margin: 2rem 0;
+	font-size: 2.5rem;
+	color: #f29544;
+	text-align: center;
+}
+h2 {
+	font-size: 2rem;
+	color: #f2c641;
+	text-align: center;
+}
+.container {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	max-width: 80rem;
+	margin: 0 auto;
+}
+main {
+	display: flex;
+	flex-wrap: wrap;
+}
+section {
+	flex: 1 1 15rem;
+	padding: 1rem;
+}
+footer {
+	margin: 3rem 0;
+	text-align: center;
+	font-size: 1.4rem;
+}
