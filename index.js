@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
+const crypto = require('./encryption')
 
 require('dotenv').config()
 const remoteServer = require('socket.io-client')(
@@ -31,6 +32,7 @@ let values = {
 let lastTime = 0
 
 remoteServer.on('toggle', function(data) {
+	data = JSON.parse(crypto.decrypt(data))
 	if (Date.now() - lastTime > 200) {
 		lastTime = Date.now()
 		values[data.type] = data.value
@@ -41,7 +43,7 @@ remoteServer.on('toggle', function(data) {
 	}
 })
 remoteServer.on('request-data', function() {
-	remoteServer.emit('send-data', values)
+	remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
 })
 
 io.on('connection', function(socket) {
@@ -52,7 +54,7 @@ io.on('connection', function(socket) {
 			lastTime = Date.now()
 			values[data.type] = data.value
 			socket.broadcast.emit('send-data', values)
-			remoteServer.emit('send-data', values)
+			remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
 			gpio.write(pins[data.type], data.value, function(err) {
 				if (err) console.log(err)
 			})
@@ -71,7 +73,7 @@ io.on('connection', function(socket) {
 					}
 				})
 				socket.broadcast.emit('send-data', values)
-				remoteServer.emit('send-data', values)
+				remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
 			}
 			if (channel === 38) {
 				values['mainLight'] = !values['mainLight']
@@ -80,7 +82,7 @@ io.on('connection', function(socket) {
 					if (err) console.log(err)
 				})
 				socket.broadcast.emit('send-data', values)
-				remoteServer.emit('send-data', values)
+				remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
 			}
 		}
 	})
