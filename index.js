@@ -7,7 +7,7 @@ const crypto = require('./encryption')
 
 require('dotenv').config()
 const remoteServer = require('socket.io-client')(
-	'http://' + process.env.SERVER_IP + ':' + process.env.SERVER_PORT + '/',
+	'https://' + process.env.SERVER_URL + '/',
 )
 
 gpio.setup(10, gpio.DIR_OUT)
