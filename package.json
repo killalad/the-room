@@ -12,7 +12,6 @@
 	"dependencies": {
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
-		"rpi-gpio": "^2.1.5",
 		"rpio": "^2.1.1",
 		"socket.io": "^2.3.0",
 		"socket.io-client": "^2.3.0"
