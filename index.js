@@ -11,12 +11,14 @@ const remoteServer = require('socket.io-client')(
 	'https://' + process.env.SERVER_URL + '/',
 )
 
-// gpio.setup(10, gpio.DIR_OUT)
 rpio.open(10, rpio.OUTPUT, rpio.LOW)
-// gpio.setup(8, gpio.DIR_OUT)
 rpio.open(8, rpio.OUTPUT, rpio.LOW)
+rpio.open(36, rpio.INPUT, rpio.PULL_UP)
+rpio.open(38, rpio.INPUT, rpio.PULL_UP)
 // gpio.setup(36, gpio.DIR_IN, gpio.EDGE_RISING)
 // gpio.setup(38, gpio.DIR_IN, gpio.EDGE_BOTH)
+rpio.poll(36, pollcb, rpio.POLL_HIGH)
+rpio.poll(38, pollcb, rpio.POLL_BOTH)
 
 server.listen(process.env.LOCAL_PORT)
 
@@ -37,6 +39,31 @@ let convert = {
 	false: rpio.LOW,
 }
 let lastTime = 0
+
+function pollcb(pin) {
+	rpio.msleep(20)
+	if (rpio.read(pin)) return
+
+	if (Date.now() - lastTime > 200) {
+		lastTime = Date.now()
+		if (pin === 36) {
+			Object.keys(values).forEach(key => {
+				if (values[key] === true) {
+					values[key] = false
+					rpio.write(pins[key], rpio.LOW)
+				}
+			})
+			// socket.broadcast.emit('send-data', values)
+			remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
+		}
+		if (pin === 38) {
+			values['mainLight'] = !values['mainLight']
+			rpio.write(pins['mainLight'], convert[values['mainLight']])
+			// socket.broadcast.emit('send-data', values)
+			remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
+		}
+	}
+}
 
 // remoteServer.on('toggle', function(data) {
 // 	data = JSON.parse(crypto.decrypt(data))
@@ -62,9 +89,6 @@ io.on('connection', function(socket) {
 			values[data.type] = data.value
 			socket.broadcast.emit('send-data', values)
 			remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
-			// gpio.write(pins[data.type], data.value, function(err) {
-			// 	if (err) console.log(err)
-			// })
 			rpio.write(pins[data.type], convert[data.value])
 		}
 	})
