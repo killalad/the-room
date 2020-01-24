@@ -42,7 +42,6 @@ let lastTime = 0
 
 function pollcb(pin) {
 	rpio.msleep(20)
-	if (rpio.read(pin)) return
 
 	if (Date.now() - lastTime > 200) {
 		lastTime = Date.now()
