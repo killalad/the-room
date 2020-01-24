@@ -17,8 +17,8 @@ rpio.open(36, rpio.INPUT, rpio.PULL_UP)
 rpio.open(38, rpio.INPUT, rpio.PULL_UP)
 // gpio.setup(36, gpio.DIR_IN, gpio.EDGE_RISING)
 // gpio.setup(38, gpio.DIR_IN, gpio.EDGE_BOTH)
-rpio.poll(36, pollcb, rpio.POLL_HIGH)
-rpio.poll(38, pollcb, rpio.POLL_BOTH)
+rpio.poll(36, pollcb)
+rpio.poll(38, pollcb)
 
 server.listen(process.env.LOCAL_PORT)
 
