@@ -14,6 +14,7 @@
 		"express": "^4.17.1",
 		"rpio": "^2.1.1",
 		"socket.io": "^2.3.0",
-		"socket.io-client": "^2.3.0"
+		"socket.io-client": "^2.3.0",
+		"winston": "^3.2.1"
 	}
 }
