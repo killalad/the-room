@@ -1,3 +1,5 @@
+'use strict'
+
 const rpio = require('rpio')
 const express = require('express')
 const app = express()

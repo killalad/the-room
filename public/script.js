@@ -1,3 +1,5 @@
+'use strict'
+
 let socket = io()
 let toggle = {
 	mainLight: document.getElementById('mainLightToggle'),
