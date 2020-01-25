@@ -7,7 +7,7 @@ const crypto = require('./encryption')
 
 require('dotenv').config()
 const remoteServer = require('socket.io-client')(
-	'https://' + process.env.SERVER_URL + '/?token=' + process.env.AUTH_TOKEN,
+	'https://' + process.env.SERVER_URL + '/rpi?token=' + process.env.AUTH_TOKEN,
 )
 
 rpio.open(10, rpio.OUTPUT, rpio.LOW)
