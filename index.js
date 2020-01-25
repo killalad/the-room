@@ -7,7 +7,7 @@ const crypto = require('./encryption')
 
 require('dotenv').config()
 const remoteServer = require('socket.io-client')(
-	'https://' + process.env.SERVER_URL + '/',
+	'https://' + process.env.SERVER_URL + '/?token=' + process.env.AUTH_TOKEN,
 )
 
 rpio.open(10, rpio.OUTPUT, rpio.LOW)
@@ -63,7 +63,12 @@ function switchers(pin) {
 }
 
 remoteServer.on('toggle', function(data) {
-	data = JSON.parse(crypto.decrypt(data))
+	try {
+		data = JSON.parse(crypto.decrypt(data))
+	} catch (e) {
+		console.log(e)
+	}
+
 	if (Date.now() - lastTime > 200) {
 		lastTime = Date.now()
 		values[data.type] = data.value
