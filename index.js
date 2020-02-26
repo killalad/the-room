@@ -59,25 +59,29 @@ function haltAll() {
 	}
 }
 function mainSwitch() {
+	if (Date.now() - lastTime > 200) {
+		lastTime = Date.now()
+	} else {
+		lastTime = Date.now()
+		return
+	}
 	rpio.msleep(30)
 	let state = rpio.read(pins['mainLight'])
 	let count = 0
 	for (let i = 0; i < 10; i++) {
 		if (rpio.read(pins['mainLight']) == state) count++
+
 		rpio.msleep(50)
 	}
 	if (count < 9) return
-	if (Date.now() - lastTime > 200) {
-		lastTime = Date.now()
 
-		try {
-			values['mainLight'] = !values['mainLight']
-			rpio.write(pins['mainLight'], convert[values['mainLight']])
-			io.sockets.emit('send-data', values)
-			remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
-		} catch (e) {
-			logger.warn(e)
-		}
+	try {
+		values['mainLight'] = !values['mainLight']
+		rpio.write(pins['mainLight'], convert[values['mainLight']])
+		io.sockets.emit('send-data', values)
+		remoteServer.emit('send-data', crypto.encrypt(JSON.stringify(values)))
+	} catch (e) {
+		logger.warn(e)
 	}
 }
 
