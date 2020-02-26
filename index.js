@@ -59,7 +59,7 @@ function haltAll() {
 	}
 }
 function mainSwitch() {
-	rpio.msleep(10)
+	rpio.msleep(30)
 	let state = rpio.read(pins['mainLight'])
 	let count = 0
 	for (let i = 0; i < 10; i++) {
