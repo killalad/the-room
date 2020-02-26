@@ -66,7 +66,7 @@ function mainSwitch() {
 		if (rpio.read(pins['mainLight']) == state) count++
 		rpio.msleep(5)
 	}
-	if (count < 10) return
+	if (count < 9) return
 	if (Date.now() - lastTime > 200) {
 		lastTime = Date.now()
 
