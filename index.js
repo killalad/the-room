@@ -59,9 +59,17 @@ function haltAll() {
 	}
 }
 function mainSwitch() {
-	rpio.msleep(20)
+	rpio.msleep(10)
+	let state = rpio.read(pins['mainLight'])
+	let count = 0
+	for (let i = 0; i < 5; i++) {
+		if (rpio.read(pins['mainLight']) == state) count++
+		rpio.msleep(5)
+	}
+	if (count < 4) return
 	if (Date.now() - lastTime > 200) {
 		lastTime = Date.now()
+
 		try {
 			values['mainLight'] = !values['mainLight']
 			rpio.write(pins['mainLight'], convert[values['mainLight']])
