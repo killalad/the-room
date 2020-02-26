@@ -64,7 +64,7 @@ function mainSwitch() {
 	let count = 0
 	for (let i = 0; i < 10; i++) {
 		if (rpio.read(pins['mainLight']) == state) count++
-		rpio.msleep(5)
+		rpio.msleep(50)
 	}
 	if (count < 9) return
 	if (Date.now() - lastTime > 200) {
