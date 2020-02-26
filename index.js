@@ -67,14 +67,15 @@ function mainSwitch() {
 	}
 	rpio.msleep(30)
 	let state = rpio.read(pins['mainLight'])
-	let count = 0
+	/*let count = 0
 	for (let i = 0; i < 10; i++) {
 		if (rpio.read(pins['mainLight']) == state) count++
 
 		rpio.msleep(20)
 	}
 	if (count < 9) return
-
+	*/
+	if (rpio.read(pins['mainLight']) != state) return
 	try {
 		values['mainLight'] = !values['mainLight']
 		rpio.write(pins['mainLight'], convert[values['mainLight']])
