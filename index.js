@@ -75,6 +75,7 @@ function mainSwitch() {
 	}
 	if (count < 9) return
 	*/
+	rpio.msleep(50)
 	if (rpio.read(pins['mainLight']) != state) return
 	try {
 		values['mainLight'] = !values['mainLight']
